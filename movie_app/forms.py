@@ -1,9 +1,14 @@
-import re
 from django import forms
+from matplotlib import widgets
 from .models import Movie
 
-class NewForm(forms.Form):
-    name = forms.CharField(max_length=40)
-    rating = forms.IntegerField(required=False)
-    year = forms.IntegerField()
-    budget= forms.IntegerField()
+class NewForm(forms.ModelForm):
+    class Meta:
+        model=Movie
+        fields= ['name', 'rating', 'year', 'budget']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'rating': forms.NumberInput(attrs={'class': 'form-control'}),
+            'year': forms.NumberInput(attrs={'class': 'form-control'}),
+            'budget': forms.NumberInput(attrs={'class': 'form-control'})
+        }
